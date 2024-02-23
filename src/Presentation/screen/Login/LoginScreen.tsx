@@ -1,46 +1,63 @@
 import React, { useState } from 'react';
-import {View, Text, TextInput, Button} from 'react-native';
-import { styles } from './LoginScreenStyles';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Linking  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { styles } from './LoginScreenStyles';
+import { MyColors } from '../../theme/AppTheme';
 
 
-const LoginScreen: React.FunctionComponent =  () => {
+
+const LoginScreen: React.FunctionComponent = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
     const navigation = useNavigation();
 
     const handleLogin = () => {
-        console.log('informacion :', {username, password} );
+        console.log('Información:', { username, password });
     }
 
     const handleRegister = () => {
         navigation.navigate('Register');
-        console.log('register');
+        console.log('Registro');
     }
-    //kebab case  handle-login
-    //sneake case handle_login
-    return(
-        <View style={styles.container}>
+
+    return (
+        <View style={[styles.container, { backgroundColor: MyColors.background }]}>
             <Text style={styles.label}>Email</Text>
-            <TextInput style={styles.input}
+            <TextInput
+                style={styles.input}
                 onChangeText={setUsername}
                 value={username}
-                placeholder="aqui va tu email"/>
+                placeholder="Ingresa tu email"
+                autoCapitalize="none"
+            />
             <Text style={styles.label}>Password</Text>
-            <TextInput style={styles.input}
+            <TextInput
+                style={styles.input}
                 onChangeText={setPassword}
                 value={password}
-                secureTextEntry= {true}
-                placeholder="ingresa password"/>
-            
-            <Button title ="Login" onPress={handleLogin}/>
-            <Button title= 'Registrate' onPress={handleRegister}/>
+                secureTextEntry={true}
+                placeholder="Ingresa tu contraseña"
+            />
+
+            <View style={styles.buttonContainer}>
+                {/* Botón de inicio de sesión */}
+                <TouchableOpacity
+                    style={[styles.button, styles.loginButton]}
+                    onPress={handleLogin}
+                >
+                    <Text style={styles.buttonText}>Iniciar Sesión</Text>
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.registerContainer}>
+                {/* Texto de registro */}
+                <Text style={styles.registerText}>¿No tienes cuenta? </Text>
+                {/* Enlace de registro */}
+                <Text style={styles.link} onPress={handleRegister}>Regístrate</Text>
+            </View>
         </View>
     )
-    
 }
-
 
 
 
