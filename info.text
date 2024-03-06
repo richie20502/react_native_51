@@ -5,3 +5,7 @@ const products = await Products.findAll();: Aquí se espera a que la función Pr
 res.json(products);: Una vez que la promesa se resuelve y se obtienen los productos, se envían como respuesta al cliente en formato JSON utilizando el método res.json().
 
 catch (error) { ... }: Si ocurre un error durante la ejecución de la función Products.findAll() o cualquier otra parte del código dentro del bloque try, el control se transfiere al bloque catch, donde se maneja el error. En este caso, el error se registra en la consola y se envía una respuesta de error al cliente con un código de estado HTTP 500.
+
+05/03/2024
+se agrega axios 
+react-native-config
