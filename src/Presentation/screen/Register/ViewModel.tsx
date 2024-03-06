@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Api } from '../../../Data/sources/remote/api/Api';
+import { RegisterAuthUseCase } from '../../../Domain/useCases/auth/RegisterAuth';
 
 const RegisterViewModel = () => {
 
@@ -16,12 +17,9 @@ const RegisterViewModel = () => {
     }
 
     const register = async () =>{
-        try {
-            const response = await Api.post('/users', values);
-            //console.log(response.data);
-        } catch (error) {
-            console.error('Error al crear usuario:', error);
-        }
+        const {result, error} = await RegisterAuthUseCase(values);
+        console.log('RESULT: '+ JSON.stringify(result));
+        console.log('ERROR: '+ error);
     }
 
     return {

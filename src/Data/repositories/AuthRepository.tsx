@@ -5,8 +5,9 @@ import { ResponseApi} from "../sources/remote/models/ResponseApi";
 
 export class AuthRepositoryImpl implements AuthRepository {
     async register(user: User) {
+        console.log(user);
         try {
-            const response = await Api.post<ResponseApi>('/user/create', user);
+            const response = await Api.post<ResponseApi>('/users', user);
             console.log('RESPONSE ', JSON.stringify(response.data));
             return Promise.resolve({error: undefined, result: response.data});
         } catch (error) {
