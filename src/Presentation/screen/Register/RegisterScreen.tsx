@@ -13,7 +13,7 @@ const RegisterScreen = () => {
 
     const handleRegister = () => {
 
-      axios.post('http://192.168.1.15:3000/api/users', {
+      axios.post('http://192.168.0.142:3000/api/users', {
         name: name,
         apellidoPaterno: apellidoPaterno,
         apellidoMaterno: apellidoMaterno,
@@ -37,7 +37,6 @@ const RegisterScreen = () => {
         onChangeText={setName}
         style={styles.input}
         />
-
 
         <TextInput
         placeholder="Apellido Paterno"
@@ -64,7 +63,9 @@ const RegisterScreen = () => {
          placeholder="Contraseña"
         value= {password}
         onChangeText={setPassword}
-        style={styles.input}/>
+        style={styles.input}
+        secureTextEntry={true}
+        />
 
         <Button title='Guardar' onPress={handleRegister}/>
     </View>
