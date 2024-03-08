@@ -1,15 +1,23 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { View, Text, TextInput, Button } from 'react-native'
+import { styles } from "./RegisterScreenStyles"
 
 const RegisterScreen = () => {
-    const [username, setUsername] = useState('');
+    const [name, setName] = useState('');
     const [password, setPassword] = useState('');
+    const [apellidoPaterno, setApellidoPaterno] = useState('');
+    const [apellidoMaterno, setApellidoMaterno] = useState('');
+    const [email, setEmail] = useState('');
+    
 
     const handleRegister = () => {
 
-      axios.post('http://169.254.184.229:3000/api/51', {
-        username: username,
+      axios.post('http://192.168.1.15:3000/api/users', {
+        name: name,
+        apellidoPaterno: apellidoPaterno,
+        apellidoMaterno: apellidoMaterno,
+        email: email,
         password: password
       }).then(response => {
         console.log('then', response);
@@ -21,17 +29,42 @@ const RegisterScreen = () => {
 
 
   return (
-    <View>
-        <Text> Bienvenido a la pantalla de registro ..</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Bienvenido a la pantalla de registro</Text>
         <TextInput
-        placeholder='nombre usuario'
-        value= {username}
-        onChangeText={setUsername}/>
+        placeholder="Nombre"
+        value= {name}
+        onChangeText={setName}
+        style={styles.input}
+        />
+
 
         <TextInput
-        placeholder='password'
+        placeholder="Apellido Paterno"
+        value={apellidoPaterno}
+        onChangeText={setApellidoPaterno}
+        style={styles.input}
+        />
+
+        <TextInput
+        placeholder="Apellido Materno"
+        value={apellidoMaterno}
+        onChangeText={setApellidoMaterno}
+        style={styles.input}
+        />
+
+        <TextInput
+        placeholder="Correo Electrónico"
+        value={email}
+        onChangeText={setEmail}
+        style={styles.input}
+        />
+
+        <TextInput
+         placeholder="Contraseña"
         value= {password}
-        onChangeText={setPassword}/>
+        onChangeText={setPassword}
+        style={styles.input}/>
 
         <Button title='Guardar' onPress={handleRegister}/>
     </View>
