@@ -1,31 +1,12 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { View, Text, TextInput, Button } from 'react-native'
-import { styles } from "./RegisterScreenStyles"
+import { styles } from "./RegisterScreenStyles";
+import RegisterViewModel from './ViewModel';
 
 const RegisterScreen = () => {
-    const [name, setName] = useState('');
-    const [password, setPassword] = useState('');
-    const [apellidoPaterno, setApellidoPaterno] = useState('');
-    const [apellidoMaterno, setApellidoMaterno] = useState('');
-    const [email, setEmail] = useState('');
+    const {name, password, apellidoPaterno, apellidoMaterno, email, onChange, register } = RegisterViewModel();
     
-
-    const handleRegister = () => {
-
-      axios.post('http://192.168.0.142:3000/api/users', {
-        name: name,
-        apellidoPaterno: apellidoPaterno,
-        apellidoMaterno: apellidoMaterno,
-        email: email,
-        password: password
-      }).then(response => {
-        console.log('then', response);
-      }).catch((error) => {
-        console.log('error', error);
-      });
-
-    }
 
 
   return (
@@ -34,40 +15,40 @@ const RegisterScreen = () => {
         <TextInput
         placeholder="Nombre"
         value= {name}
-        onChangeText={setName}
+        onChangeText={ (text) => onChange('name', text)}
         style={styles.input}
         />
 
         <TextInput
         placeholder="Apellido Paterno"
         value={apellidoPaterno}
-        onChangeText={setApellidoPaterno}
+        onChangeText={ (text) => onChange('apellidoPaterno', text)}
         style={styles.input}
         />
 
         <TextInput
         placeholder="Apellido Materno"
         value={apellidoMaterno}
-        onChangeText={setApellidoMaterno}
+        onChangeText={ (text) => onChange('apellidoMaterno', text)}
         style={styles.input}
         />
 
         <TextInput
         placeholder="Correo Electrónico"
         value={email}
-        onChangeText={setEmail}
+        onChangeText={ (text) => onChange('email', text)}
         style={styles.input}
         />
 
         <TextInput
          placeholder="Contraseña"
         value= {password}
-        onChangeText={setPassword}
+        onChangeText={ (text) => onChange('password', text)}
         style={styles.input}
         secureTextEntry={true}
         />
 
-        <Button title='Guardar' onPress={handleRegister}/>
+        <Button title='Guardar' onPress={  () => register()}/>
     </View>
   )
 }
