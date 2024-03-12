@@ -46,6 +46,7 @@ const LoginViewModel = () => {
 
     return {
         ...values,
+        user,
         onChange,
         login,
         errorMessage

@@ -1,29 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Linking  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from './LoginScreenStyles';
 import { MyColors } from '../../theme/AppTheme';
 import LoginViewModel from './ViewModel';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { StackNavigationProp,StackScreenProps } from '@react-navigation/stack';
 import { RootSatckParamList } from '../../../../App';
 
+interface Props extends StackScreenProps<RootSatckParamList, "Login">{};
 
+const LoginScreen = ({navigation, route}: Props) => {
 
-const LoginScreen: React.FunctionComponent = () => {
+    const {email, password, errorMessage, onChange, login, user} = LoginViewModel();
 
-    const {email, password, errorMessage, onChange, login} = LoginViewModel();
-    const navigation = useNavigation<StackNavigationProp<RootSatckParamList>>();
+    useEffect(() => {
+        if(user?.session_token !== null && user?.id !== undefined){
+            navigation.navigate('ProfileInfoScreen');
+        }
+        }, [user]);
     
-
-
-    const handleLogin = () => {
-        console.log('Información:', { email, password });
-    }
-
-    const handleRegister = () => {
-        navigation.navigate('Register');
-        console.log('Registro');
-    }
 
     return (
         <View style={[styles.container, { backgroundColor: MyColors.background }]}>
@@ -58,7 +53,7 @@ const LoginScreen: React.FunctionComponent = () => {
                 {/* Texto de registro */}
                 <Text style={styles.registerText}>¿No tienes cuenta? </Text>
                 {/* Enlace de registro */}
-                <Text style={styles.link} onPress={handleRegister}>Regístrate</Text>
+                <Text style={styles.link} onPress={()=> navigation.navigate('Register') } >Regístrate</Text>
             </View>
         </View>
     )
