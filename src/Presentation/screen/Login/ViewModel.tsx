@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { LoginAuthUseCase } from '../../../Domain/useCases/auth/LoginAuth'; 
+import { LoginAuthUseCase } from '../../../Domain/useCases/auth/LoginAuth';
+import { SaveUserCase } from '../../../Domain/useCases/userLocal/SaveUser';
+import { GetUserCase } from '../../../Domain/useCases/userLocal/GetUser';
 
 
 const LoginViewModel = () => {
@@ -8,6 +10,11 @@ const LoginViewModel = () => {
         email:'',
         password:''
     });
+
+    const getUserSession = async() => {
+        const user = await GetUserCase();
+        console.log('USER SESSION', JSON.stringify(user));
+    }
 
     const onChange = (property: string, value:any) => {
         setValues({...values,[property]: value});
@@ -19,6 +26,9 @@ const LoginViewModel = () => {
             console.log('RESPONSE: ' + JSON.stringify(response));
             if(!response.success){
                 seterrorMessage(response.message);
+            }else{
+                console.log('GUARDA LA DATA');
+                await SaveUserCase(response.data);
             }
         }
     }

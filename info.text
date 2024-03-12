@@ -9,3 +9,15 @@ catch (error) { ... }: Si ocurre un error durante la ejecución de la función P
 05/03/2024
 se agrega axios 
 react-native-config
+----------------------------------------
+se agrtego npm i @react-native-async-storage/async-storage
+
+genera el archivo en   
+src/Data/sources/local/LocalStorage.tsx
+luegho
+src/Domain/repositories/UserLocalRepository.tsx
+
+src/Data/repositories/UserLocalRepository.tsx
+
+src/Domain/useCases/userLocal/GetUser.tsx
+src/Domain/useCases/userLocal/SaveUser.tsx
