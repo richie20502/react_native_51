@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { LoginAuthUseCase } from '../../../Domain/useCases/auth/LoginAuth';
 import { SaveUserCase } from '../../../Domain/useCases/userLocal/SaveUser';
-import { GetUserCase } from '../../../Domain/useCases/userLocal/GetUser';
-
+import { useUserLocal } from '../../hooks/useUserLocal';
 
 const LoginViewModel = () => {
     const [errorMessage, seterrorMessage] = useState('');
@@ -10,11 +9,9 @@ const LoginViewModel = () => {
         email:'',
         password:''
     });
+    const { user } = useUserLocal();
+    console.log("USUARIO DE SESSION ", JSON.stringify(user));
 
-    const getUserSession = async() => {
-        const user = await GetUserCase();
-        console.log('USER SESSION', JSON.stringify(user));
-    }
 
     const onChange = (property: string, value:any) => {
         setValues({...values,[property]: value});
