@@ -7,7 +7,7 @@ import LoginViewModel from './ViewModel';
 import { StackNavigationProp,StackScreenProps } from '@react-navigation/stack';
 import { RootSatckParamList } from '../../../../App';
 
-interface Props extends StackScreenProps<RootSatckParamList, "Login">{};
+interface Props extends StackScreenProps<RootSatckParamList, "LoginScreen">{};
 
 const LoginScreen = ({navigation, route}: Props) => {
 
