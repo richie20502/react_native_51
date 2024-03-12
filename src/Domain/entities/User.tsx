@@ -5,4 +5,5 @@ export interface User {
     apellidoMaterno: string;
     email:           string;
     password:        string;
+    session_token?:  string;
 }
