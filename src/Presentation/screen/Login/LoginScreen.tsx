@@ -3,37 +3,38 @@ import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Linking  }
 import { useNavigation } from '@react-navigation/native';
 import { styles } from './LoginScreenStyles';
 import { MyColors } from '../../theme/AppTheme';
+import LoginViewModel from './ViewModel';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootSatckParamList } from '../../../../App';
 
 
 
 const LoginScreen: React.FunctionComponent = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const navigation = useNavigation();
+    const {email,password, errorMessage, onChange, login} = LoginViewModel(); 
 
-    const handleLogin = () => {
-        console.log('Información:', { username, password });
-    }
+
+    const navigation = useNavigation<StackNavigationProp<RootSatckParamList>>();
 
     const handleRegister = () => {
         navigation.navigate('Register');
         console.log('Registro');
     }
 
+    
     return (
         <View style={[styles.container, { backgroundColor: MyColors.background }]}>
             <Text style={styles.label}>Email</Text>
             <TextInput
                 style={styles.input}
-                onChangeText={setUsername}
-                value={username}
+                onChangeText={(text) => onChange('email', text)}
+                value={email}
                 placeholder="Ingresa tu email"
                 autoCapitalize="none"
             />
             <Text style={styles.label}>Password</Text>
             <TextInput
                 style={styles.input}
-                onChangeText={setPassword}
+                onChangeText={(text) => onChange('password', text)}
                 value={password}
                 secureTextEntry={true}
                 placeholder="Ingresa tu contraseña"
@@ -43,7 +44,7 @@ const LoginScreen: React.FunctionComponent = () => {
                 {/* Botón de inicio de sesión */}
                 <TouchableOpacity
                     style={[styles.button, styles.loginButton]}
-                    onPress={handleLogin}
+                    onPress={ () => login()}
                 >
                     <Text style={styles.buttonText}>Iniciar Sesión</Text>
                 </TouchableOpacity>
