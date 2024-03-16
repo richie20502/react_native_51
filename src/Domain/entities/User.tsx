@@ -5,4 +5,5 @@ export interface User {
     apellidoPaterno:    string;
     apellidoMaterno:    string;
     password:           string;
+    token?:     string;
 }
